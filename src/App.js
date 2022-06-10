@@ -20,7 +20,9 @@ function App() {
 				todoRegister={todoRegister}
 				setTodoRegister={setTodoRegister}
 			/>
-			<List />
+			<List
+				todoRegister={todoRegister}
+			/>
 			<Footer />
 		</div>
 	);

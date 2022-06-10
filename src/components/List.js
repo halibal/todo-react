@@ -1,8 +1,22 @@
 import React from 'react';
 
-function List() {
+function List(props) {
     return (
-        <div>List</div>
+        <div className='list-container'>
+            <ul className='list-group'>
+                {
+                    props.todoRegister.map(todoRegister => {
+                        return (
+                            <li className='list-group-item'>
+                                <div>O</div>
+                                <p>{todoRegister.todoInput}</p>
+                                <div>X</div>
+                            </li>
+                        )
+                    })
+                }
+            </ul>
+        </div>
     )
 }
 

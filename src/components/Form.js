@@ -15,7 +15,7 @@ function Form(props) {
         setTodoInput(prevTodo => {
             return {
                 ...prevTodo,
-                [event.target.name]: event.target.value
+                [event.target.name]: event.target.value,
             }
         })
     }

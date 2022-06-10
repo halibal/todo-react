@@ -31,6 +31,27 @@
     font-size: 1.5rem;
 }
 
+.input-field::placeholder {
+    color: rgba(128, 128, 128, 0.301);
+    font-style: italic;
+}
+
 hr {
     border: 1px solid rgba(128, 128, 128, 0.3);
+}
+
+.list-container {
+    background-color: white;
+}
+
+.list-group-item {
+    height: 60px;
+    display: flex;
+    align-items: center;
+    font-size: 1.5rem;
+    justify-content: space-between;
+}
+
+.list-group {
+    padding: 0;
 }
