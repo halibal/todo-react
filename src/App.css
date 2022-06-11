@@ -23,7 +23,7 @@
     color: inherit;
 }
 
-.input-field {
+.todo-input {
     min-width: 500px;
     height: 70px;
     border: none;
@@ -31,9 +31,35 @@
     font-size: 1.5rem;
 }
 
-.input-field::placeholder {
+.todo-input::placeholder {
     color: rgba(128, 128, 128, 0.301);
     font-style: italic;
+}
+
+.todo-input:hover~.close-icon {
+    color: rgb(100, 2, 2);
+}
+
+.close-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    color: rgb(100, 2, 2);
+    margin-left: auto;
+}
+
+.check-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 35px;
+    height: 35px;
+    border: 1px solid rgba(128, 128, 128, 0.185);
+    border-radius: 50%;
+    margin-left: 20px;
+    margin-right: 20px;
+    color: rgb(5, 216, 5);
 }
 
 hr {
@@ -49,9 +75,14 @@ hr {
     display: flex;
     align-items: center;
     font-size: 1.5rem;
-    justify-content: space-between;
+    justify-content: flex-start;
 }
 
 .list-group {
     padding: 0;
+}
+
+.completed {
+    text-decoration: line-through;
+    color: rgba(128, 128, 128, 0.363);
 }
