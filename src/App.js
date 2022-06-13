@@ -31,6 +31,11 @@ function App() {
 		setTodos(updatedTodos)
 	}
 
+	const removeCompletedTodo = () => {
+		let completedTodos = [...todos].filter((todo) => todo.completed !== true);
+		setTodos(completedTodos)
+	}
+
 	const completeTodo = (id) => {
 		let updatedTodos = todos.map((todo) => {
 			if (todo.id === id) {
@@ -41,12 +46,19 @@ function App() {
 		setTodos(updatedTodos)
 	}
 
+	const uncompletedItems = todos.filter(({ completed }) => completed === false)
+	const completedItems = todos.filter(({ completed }) => completed === true)
+	console.log("uncompleted items:")
+	console.log(uncompletedItems)
+	console.log("completed items:")
+	console.log(completedItems)
+
 	return (
 		<div className="App">
 			<Header />
 			<TodoForm addTodo={addTodo} />
 			<hr />
-			<div className='list-container'>
+			{todos.length > 0 && <div className='list-container'>
 				{todos.map((todo) => {
 					return (
 						<TodoItem
@@ -57,7 +69,21 @@ function App() {
 						/>
 					)
 				})}
-			</div>
+				<div className='status-container'>
+					<p className='completed-items-text'>
+						{uncompletedItems.length} {todos.length === 1 ? "task" : "tasks"} left
+					</p>
+					<div className='buttons-container'>
+						<button className="all-button">All</button>
+						<button className="active-button">Active</button>
+						<button className="completed-button">Completed</button>
+					</div>
+					{completedItems.length === 0
+						? <button style={{ visibility: 'hidden' }}>Clear Completed</button>
+						: <button onClick={removeCompletedTodo}>Clear Completed</button>
+					}
+				</div>
+			</div>}
 			<Footer />
 		</div>
 	);

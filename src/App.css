@@ -24,11 +24,12 @@
 }
 
 .todo-input {
-    min-width: 500px;
+    min-width: 550px;
     height: 70px;
     border: none;
     outline: none;
     font-size: 1.5rem;
+    padding-left: 80px;
 }
 
 .todo-input::placeholder {
@@ -85,4 +86,33 @@ hr {
 .completed {
     text-decoration: line-through;
     color: rgba(128, 128, 128, 0.363);
+}
+
+.status-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    color: grey;
+}
+
+.status-container button {
+    border: 1px solid rgba(175, 47, 47, 0);
+    color: grey;
+    background-color: transparent;
+    cursor: pointer;
+    border-radius: 2px;
+}
+
+.status-container button:hover {
+    border: 1px solid rgba(175, 47, 47, 0.1);
+}
+
+.status-container button:focus {
+    border: 1px solid rgba(175, 47, 47, 0.2);
+}
+
+.buttons-container>button {
+    margin-left: 2px;
+    margin-right: 2px;
 }
