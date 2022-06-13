@@ -23,7 +23,13 @@
     color: inherit;
 }
 
+.todo-form {
+    position: relative;
+}
+
+
 .todo-input {
+    width: 100%;
     min-width: 550px;
     height: 70px;
     border: none;
@@ -33,7 +39,7 @@
 }
 
 .todo-input::placeholder {
-    color: rgba(128, 128, 128, 0.301);
+    color: rgba(128, 128, 128, 0.2);
     font-style: italic;
 }
 
@@ -41,12 +47,21 @@
     color: rgb(100, 2, 2);
 }
 
+.set-all-completed {
+    position: absolute;
+    width: 40px;
+    height: 2em;
+    top: 20px;
+    left: 20px;
+    color: rgba(128, 128, 128, 0.2);
+}
+
 .close-icon {
     display: flex;
     align-items: center;
     justify-content: center;
     width: 40px;
-    color: rgb(100, 2, 2);
+    color: rgb(100, 2, 2, 0);
     margin-left: auto;
 }
 
@@ -64,11 +79,7 @@
 }
 
 hr {
-    border: 1px solid rgba(128, 128, 128, 0.3);
-}
-
-.list-container {
-    background-color: white;
+    border: 1px solid rgba(128, 128, 128, 0.11);
 }
 
 .list-group-item {
@@ -77,6 +88,10 @@ hr {
     align-items: center;
     font-size: 1.5rem;
     justify-content: flex-start;
+}
+
+.list-group-item:hover .close-icon {
+    color: rgb(100, 2, 2, 0.5);
 }
 
 .list-group {
@@ -115,4 +130,13 @@ hr {
 .buttons-container>button {
     margin-left: 2px;
     margin-right: 2px;
+}
+
+.all-button:focus {
+    border: 1px solid rgba(175, 47, 47, 0.2);
+}
+
+.input-and-list-container {
+    background-color: white;
+    box-shadow: 0 5px 10px rgba(128, 128, 128, 0.548);
 }

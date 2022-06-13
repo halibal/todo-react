@@ -1,4 +1,5 @@
 import React from 'react';
+import { IoIosArrowDown } from 'react-icons/io';
 
 export default function TodoForm(props) {
 
@@ -20,6 +21,7 @@ export default function TodoForm(props) {
             onSubmit={handleSubmit}
             className="todo-form"
         >
+            {props.todos.length > 0 && <IoIosArrowDown className='set-all-completed' onClick={props.makeAllTasksCompleted} />}
             <input
                 className="todo-input"
                 placeholder='What needs to be done?'

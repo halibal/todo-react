@@ -3,6 +3,7 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import TodoForm from './components/TodoForm';
 import TodoItem from './components/TodoItem';
+import FormStatus from './components/FormStatus';
 import { nanoid } from 'nanoid';
 import './App.css';
 
@@ -46,44 +47,54 @@ function App() {
 		setTodos(updatedTodos)
 	}
 
-	const uncompletedItems = todos.filter(({ completed }) => completed === false)
-	const completedItems = todos.filter(({ completed }) => completed === true)
-	console.log("uncompleted items:")
-	console.log(uncompletedItems)
-	console.log("completed items:")
-	console.log(completedItems)
+	const makeAllTasksCompleted = () => {
+		let updatedTodos = []
+		if (todos.every((item) => {
+			return item.completed === true
+		})) {
+			updatedTodos = todos.map((todo) => {
+				todo.completed = !todo.completed // or false
+				return todo;
+			})
+		}
+		else {
+			updatedTodos = todos.map((todo) => {
+				todo.completed = true
+				return todo;
+			})
+		}
+		setTodos(updatedTodos)
+	}
+
+
 
 	return (
 		<div className="App">
 			<Header />
-			<TodoForm addTodo={addTodo} />
-			<hr />
-			{todos.length > 0 && <div className='list-container'>
-				{todos.map((todo) => {
-					return (
-						<TodoItem
-							key={todo.id}
-							todo={todo}
-							removeTodo={removeTodo}
-							completeTodo={completeTodo}
-						/>
-					)
-				})}
-				<div className='status-container'>
-					<p className='completed-items-text'>
-						{uncompletedItems.length} {todos.length === 1 ? "task" : "tasks"} left
-					</p>
-					<div className='buttons-container'>
-						<button className="all-button">All</button>
-						<button className="active-button">Active</button>
-						<button className="completed-button">Completed</button>
-					</div>
-					{completedItems.length === 0
-						? <button style={{ visibility: 'hidden' }}>Clear Completed</button>
-						: <button onClick={removeCompletedTodo}>Clear Completed</button>
-					}
-				</div>
-			</div>}
+			<div className='input-and-list-container'>
+				<TodoForm
+					todos={todos}
+					addTodo={addTodo}
+					makeAllTasksCompleted={makeAllTasksCompleted}
+				/>
+				<hr />
+				{todos.length > 0 && <div className='list-container'>
+					{todos.map((todo) => {
+						return (
+							<TodoItem
+								key={todo.id}
+								todo={todo}
+								removeTodo={removeTodo}
+								completeTodo={completeTodo}
+							/>
+						)
+					})}
+					<FormStatus
+						todos={todos}
+						removeCompletedTodo={removeCompletedTodo}
+					/>
+				</div>}
+			</div>
 			<Footer />
 		</div>
 	);
