@@ -8,14 +8,28 @@ import { nanoid } from 'nanoid';
 import './App.css';
 
 function App() {
+	// States
+	const [todos, setTodos] = React.useState([]);
+	const [status, setStatus] = React.useState("all");
+	const [filteredTodos, setFilteredTodos] = React.useState([]);
 
-	const [todos, setTodos] = React.useState([])
 
+	//RUN ONCE when the application starts
+	React.useEffect(() => {
+		const getLocalTodos = () => {
+			if (localStorage.getItem('todos') === null) {
+				localStorage.setItem('todos', JSON.stringify([]));
+			} else {
+				let localTodo = JSON.parse(localStorage.getItem('todos'));
+				setTodos(localTodo);
+			}
+		}
+		getLocalTodos();
+	}, []);
+
+
+	// Functions
 	const addTodo = (text) => {
-		// let id = 1;
-		// if (todos.length > 0) {
-		// 	id = todos[0].id + 1
-		// }
 
 		let todo = {
 			id: nanoid(),
@@ -27,16 +41,19 @@ function App() {
 		setTodos(newTodos);
 	}
 
+	// Remove a Task By Clicking the -X- Button
 	const removeTodo = (id) => {
 		let updatedTodos = [...todos].filter((todo) => todo.id !== id);
 		setTodos(updatedTodos)
 	}
 
+	// Remove All Completed Tasks by Clicking -Clear Completed- Button
 	const removeCompletedTodo = () => {
 		let completedTodos = [...todos].filter((todo) => todo.completed !== true);
 		setTodos(completedTodos)
 	}
 
+	// Set a Task Completed By Clicking Inside the Circle Before It
 	const completeTodo = (id) => {
 		let updatedTodos = todos.map((todo) => {
 			if (todo.id === id) {
@@ -47,6 +64,7 @@ function App() {
 		setTodos(updatedTodos)
 	}
 
+	// Setting All Tasks to Completed
 	const makeAllTasksCompleted = () => {
 		let updatedTodos = []
 		if (todos.every((item) => {
@@ -67,6 +85,36 @@ function App() {
 	}
 
 
+	// Checking Status of the Tasks By Clicking on Buttons
+	const selectTasks = (e) => {
+		setStatus(e.target.value)
+	}
+
+	// Filtering Tasks By Clicking on the Buttons => All, Active, Completed
+	React.useEffect(() => {
+		const filterHandler = () => {
+			switch (status) {
+				case 'completed':
+					setFilteredTodos(todos.filter(todo => todo.completed === true));
+					break;
+				case 'active':
+					setFilteredTodos(todos.filter(todo => todo.completed === false));
+					break;
+				default:
+					setFilteredTodos(todos);
+					break;
+			}
+		}
+		filterHandler();
+
+		// Saving Tasks to localStorage
+		const saveLocalTodos = () => { localStorage.setItem('todos', JSON.stringify(todos)) }
+		saveLocalTodos()
+	}, [todos, status]) // And We Want This Code to Run Whenever A Task Is Added and the Status Changed
+
+
+
+
 
 	return (
 		<div className="App">
@@ -79,7 +127,7 @@ function App() {
 				/>
 				<hr />
 				{todos.length > 0 && <div className='list-container'>
-					{todos.map((todo) => {
+					{filteredTodos.map((todo) => {
 						return (
 							<TodoItem
 								key={todo.id}
@@ -90,6 +138,7 @@ function App() {
 						)
 					})}
 					<FormStatus
+						selectTasks={selectTasks}
 						todos={todos}
 						removeCompletedTodo={removeCompletedTodo}
 					/>

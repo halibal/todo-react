@@ -140,3 +140,7 @@ hr {
     background-color: white;
     box-shadow: 0 5px 10px rgba(128, 128, 128, 0.548);
 }
+
+.completed-items-text {
+    width: 120px;
+}
